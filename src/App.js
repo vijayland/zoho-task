@@ -30,7 +30,7 @@ function App() {
 
   useEffect(() => {
     fetchData();
-    // timeStampFetchData();
+    timeStampFetchData();
   }, [])
 
   return (

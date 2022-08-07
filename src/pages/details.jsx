@@ -5,23 +5,24 @@ import Layout from "../layouts";
 import Table from "../components/Table";
 import DetailViewFilter from "../components/DetailViewFilter";
 import Card from "../components/Card";
+import { connect } from "react-redux";
 
-export default function Details() {
+const Details=({timeSeriesData})=> {
     let { state } = useParams();
     const [data, setData] = useState(null);
     const [tableData, setTableData] = useState({});
 
-    const timeStampFetchData = () => {
-        fetch('https://data.covid19india.org/v4/min/timeseries.min.json')
-            .then((response) => response.json())
-            .then(async (resp) => {
-                setData(resp);
-            });
-    }
+    // const timeStampFetchData = () => {
+    //     fetch('https://data.covid19india.org/v4/min/timeseries.min.json')
+    //         .then((response) => response.json())
+    //         .then(async (resp) => {
+    //             setData(resp);
+    //         });
+    // }
 
-    useEffect(() => {
-        timeStampFetchData();
-    }, [])
+    // useEffect(() => {
+    //     timeStampFetchData();
+    // }, [])
 
     //Table headers
     const columns = [
@@ -32,11 +33,21 @@ export default function Details() {
         { name: "Delta", field: "delta" },
         { name: "Delta7", field: "delta7" }
     ];
-console.log(typeof data ,' datatat')
+
     return (
         <>
             <Layout />
-            {data !== null && typeof data === 'object' ? <Table columns={columns} data={data[state]?.dates} />: <h1>Loading...</h1>}
+            {timeSeriesData !== null && typeof timeSeriesData === 'object' ? <Table columns={columns} data={timeSeriesData[state]?.dates} />: <h1>Loading...</h1>}
         </>
     )
 }
+
+const mapStateToProps = ({ timeSeriesData }) => {
+    return ({
+        timeSeriesData: timeSeriesData
+    })
+  };
+  
+  export default connect(mapStateToProps)(Details);
+  
+  

@@ -34,7 +34,7 @@ const Home = ({ covidData }) => {
     }
   };
   const handleDatePicer = (date) => { };
-console.log(data,"asdfasdfasdfads")
+
   return (
     <>
       <Layouts />
