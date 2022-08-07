@@ -7,7 +7,7 @@ import DetailViewFilter from "../components/DetailViewFilter";
 import Card from "../components/Card";
 import { connect } from "react-redux";
 
-const Details=({timeSeriesData})=> {
+const Details=({covidData})=> {
     let { state } = useParams();
 
     //Table headers
@@ -23,16 +23,17 @@ const Details=({timeSeriesData})=> {
     return (
         <>
             <Layout />
-            {timeSeriesData !== null && typeof timeSeriesData === 'object' ? <Table columns={columns} data={timeSeriesData[state]?.dates} />: <h1>Loading...</h1>}
+            {covidData?.timeSeries !== null && typeof covidData?.timeSeries === 'object' ? <Table columns={columns} data={covidData?.timeSeries[state]?.dates} />: <h1>Loading...</h1>}
         </>
     )
 }
 
-const mapStateToProps = ({ timeSeriesData }) => {
+const mapStateToProps = ({ covidData }) => {
     return ({
-        timeSeriesData: timeSeriesData
+      covidData: covidData
     })
   };
+  
   
   export default connect(mapStateToProps)(Details);
   

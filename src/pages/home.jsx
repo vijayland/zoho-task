@@ -7,14 +7,13 @@ import Filter from "../components/Filter";
 import { useLocation } from "react-router-dom";
 
 const Home = ({ covidData }) => {
-  const [data, setData] = useState(covidData);
+  const [data, setData] = useState(covidData?.covid);
   const [delta , setDelta]= useState("Total");
   const location = useLocation();
 
-
   useEffect(()=>{
-    setData(covidData);
-  },[location]);
+    setData(covidData?.covid);
+  },[covidData]);
 
   const handleSeach = (e) => {
     let name = e.target.value.split("");
@@ -36,7 +35,6 @@ const Home = ({ covidData }) => {
   };
 
   const handleDatePicer = (date) => { };
-console.log(data,"data **********")
 
   return (
     <>
@@ -44,17 +42,19 @@ console.log(data,"data **********")
       <div className="App">
         <Filter handleSeach={handleSeach} handleDatePicer={handleDatePicer} />
         <div className="flex">
-          {Object.keys(data).map((elem, index) => {
-            return (
+
+          {typeof data === 'object' && data !==undefined ? Object.keys(data).map((elem, index) => {
+           
+           return (
               <StateLists
                 key={index}
                 state={elem}
-                data={data[elem].total}
+                data={data[elem]?.total ? data[elem]?.total : {}}
                 delta={delta}
                 districts={data[elem]?.districts}
               />
             );
-          })}
+          }) : "Loading..."}
         </div>
       </div>
     </>

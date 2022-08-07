@@ -1,6 +1,6 @@
 import './App.css';
 import Router from './Router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 import Preloader from "./components/Preloader";
 import { Provider } from "react-redux";
@@ -8,15 +8,16 @@ import { store, persistor } from "./redux/store";
 import { fetchCovids, fetchTimeStamp } from "./redux/actions/covidActions"
 
 function App() {
+  const [covid, setCovid] = useState(null);
+  const [timeSeries, setTimeSeries] = useState(null);
+
   //FETCH CALL COVID DATA
   const fetchData = () => {
     fetch('https://data.covid19india.org/v4/min/data.min.json')
       .then((response) => response.json())
       .then(async (resp) => {
-        store.dispatch(fetchCovids(resp));
-        // loopPromise(resp).then(respo => {
-        //   store.dispatch(fetchCovids(respo));
-        // })
+        setCovid(resp);
+        // store.dispatch(fetchCovids({coivd: resp}));
       });
   }
 
@@ -24,7 +25,8 @@ function App() {
     fetch('https://data.covid19india.org/v4/min/timeseries.min.json')
       .then((response) => response.json())
       .then(async (resp) => {
-        store.dispatch(fetchTimeStamp(resp));
+        setTimeSeries(resp);
+        // store.dispatch(fetchCovids({timeSeries: resp}));
       });
   }
 
@@ -32,6 +34,12 @@ function App() {
     fetchData();
     timeStampFetchData();
   }, [])
+
+  useEffect(() => {
+    if (covid !== null && timeSeries !== null) {
+      store.dispatch(fetchCovids({ covid: covid, timeSeries: timeSeries }));
+    }
+  }, [covid, timeSeries])
 
   return (
     <Provider store={store}>

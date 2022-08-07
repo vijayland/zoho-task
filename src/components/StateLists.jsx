@@ -8,16 +8,6 @@ export default function StateLists({ state, districts, data, delta }) {
   let [count, setCount] = useState(null);
   const [options, setOptions] = useState([]);
 
-  // useEffect(() => {
-  //   if (count !== null) {
-  //     Object.keys(districts).forEach((item, index) => {
-  //       if (index === count - 1) {
-  //         setList(districts[item].delta);
-  //       }
-  //     });
-  //   }
-  // }, [count]);
-
   const leftArrowClick = (e) => {
     e.preventDefault();
     setCount(count + 1);
@@ -57,11 +47,11 @@ export default function StateLists({ state, districts, data, delta }) {
           {/* {Object.keys(districts).map((item, index)=>(
             <h4>{item}</h4>
           ))} */}
-          <ul>
+          {typeof data == 'object' ? <ul>
             <li>confirmed: {data?.confirmed ? data?.confirmed : 0}</li>
             <li>recovered: {data?.recovered ? data?.recovered : 0}</li>
             <li>deceased: {data?.deceased ? data?.deceased : 0}</li>
-          </ul>
+          </ul> : "Loading.."}
 {/* 
           {districtsSelect && Object.keys(districtsSelect).length !== count && (
             <button onClick={leftArrowClick}>{">"}</button>

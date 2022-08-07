@@ -3,8 +3,7 @@ import { combineReducers } from "redux";
 import timeStampReducer from "./timeStampReducer";
 
 const rootReducer = combineReducers({
-  covidData: covidReducer,
-  timeSeriesData: timeStampReducer
+  covidData: covidReducer
 });
 
 export default rootReducer;
