@@ -9,20 +9,6 @@ import { connect } from "react-redux";
 
 const Details=({timeSeriesData})=> {
     let { state } = useParams();
-    const [data, setData] = useState(null);
-    const [tableData, setTableData] = useState({});
-
-    // const timeStampFetchData = () => {
-    //     fetch('https://data.covid19india.org/v4/min/timeseries.min.json')
-    //         .then((response) => response.json())
-    //         .then(async (resp) => {
-    //             setData(resp);
-    //         });
-    // }
-
-    // useEffect(() => {
-    //     timeStampFetchData();
-    // }, [])
 
     //Table headers
     const columns = [

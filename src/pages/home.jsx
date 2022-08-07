@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 
 const Home = ({ covidData }) => {
   const [data, setData] = useState(covidData);
+  const [delta , setDelta]= useState("Total");
   const location = useLocation();
 
 
@@ -33,7 +34,9 @@ const Home = ({ covidData }) => {
       setData(covidData)
     }
   };
+
   const handleDatePicer = (date) => { };
+console.log(data,"data **********")
 
   return (
     <>
@@ -47,8 +50,8 @@ const Home = ({ covidData }) => {
                 key={index}
                 state={elem}
                 data={data[elem].total}
-                delta="Total"
-                // districtsSelect={elem.districts.select}
+                delta={delta}
+                districts={data[elem]?.districts}
               />
             );
           })}
