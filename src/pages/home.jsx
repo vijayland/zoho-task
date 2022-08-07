@@ -27,10 +27,10 @@ const Home = ({ covidData }) => {
       if (Object.keys(filter).length !== 0) {
         setData(filter);
       } else {
-        setData(covidData)
+        setData(covidData?.covid)
       }
     } else {
-      setData(covidData)
+      setData(covidData?.covid)
     }
   };
 
