@@ -1,24 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
+import Router from './Router';
+import { useEffect } from 'react';
+import { PersistGate } from 'redux-persist/integration/react';
+import Preloader from "./components/Preloader";
+import { Provider } from "react-redux";
+import { store, persistor } from "./redux/store";
+import { fetchCovids, fetchTimeStamp } from "./redux/actions/covidActions"
 
 function App() {
+  //FETCH CALL COVID DATA
+  const fetchData = () => {
+    fetch('https://data.covid19india.org/v4/min/data.min.json')
+      .then((response) => response.json())
+      .then(async (resp) => {
+        store.dispatch(fetchCovids(resp));
+        // loopPromise(resp).then(respo => {
+        //   store.dispatch(fetchCovids(respo));
+        // })
+      });
+  }
+
+  const timeStampFetchData = () => {
+    fetch('https://data.covid19india.org/v4/min/timeseries.min.json')
+      .then((response) => response.json())
+      .then(async (resp) => {
+        store.dispatch(fetchTimeStamp(resp));
+      });
+  }
+
+  useEffect(() => {
+    fetchData();
+    // timeStampFetchData();
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={<Preloader />} persistor={persistor}>
+        <Router />
+      </PersistGate>
+    </Provider>
   );
 }
 

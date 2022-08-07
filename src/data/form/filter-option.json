@@ -1,0 +1,26 @@
+[
+    {
+        "option": "Count Asc",
+        "value": "countAsc"
+    },
+    {
+        "option": "Count Dsc",
+        "value": "countDsc"
+    },
+    {
+        "option": "Affected Percentage Asc",
+        "value": "perAsc"
+    },
+    {
+        "option": "Affected Percentage Dsc",
+        "value": "perDsc"
+    },
+    {
+        "option": "Vaccinated Percentage Asc",
+        "value": "vacAsc"
+    },
+    {
+        "option": "Vaccinated Percentage Dsc",
+        "value": "vacDsc"
+    }
+]
