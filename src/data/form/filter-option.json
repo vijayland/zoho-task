@@ -1,5 +1,9 @@
 [
     {
+        "option": "Filter",
+        "value": "Filter"
+    },
+    {
         "option": "Count Asc",
         "value": "countAsc"
     },

@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Select from "./form/Select";
 
-export default function StateLists({ state, districts, data, delta }) {
-  const [list, setList] = useState({});
-  let [count, setCount] = useState(null);
+export default function StateLists({ state, districts }) {
+  const [count, setCount] = useState(null);
   const [options, setOptions] = useState([]);
+  const [delta, setDelta] = useState("Total");
+  const [data, setData] = useState({});
+  const [selectedDistrict, setSelectedDistrict] = useState("");
 
   const leftArrowClick = (e) => {
     e.preventDefault();
@@ -20,24 +22,28 @@ export default function StateLists({ state, districts, data, delta }) {
 
   const handleDistrictChange = (e) => {
     e.preventDefault();
+    setSelectedDistrict(e.target.value);
+    setData(districts[e.target.value].total)
   }
 
-  useEffect(()=>{
-    if(districts !== undefined && typeof districts == 'object'){
+  useEffect(() => {
+    if (districts !== undefined && typeof districts == 'object') {
       let final = Object.keys(districts).map(district => {
         return { option: district, value: district };
       })
       setOptions(final);
+      setSelectedDistrict(Object.keys(districts)[0]);
+      setData(districts[Object.keys(districts)[0]].total)
     }
-  },[districts])
-  console.log(options,"districs")
+  }, [districts, delta])
+
   return (
     <>
       <Card>
         <Link to={`/details/${state}`}>
           <h4>{state}</h4>
           <div>
-            <Select options={options} onChange={handleDistrictChange} />
+            <Select options={options} onChange={handleDistrictChange} value={selectedDistrict} />
           </div>
 
           <h4>{delta}</h4>
@@ -52,7 +58,7 @@ export default function StateLists({ state, districts, data, delta }) {
             <li>recovered: {data?.recovered ? data?.recovered : 0}</li>
             <li>deceased: {data?.deceased ? data?.deceased : 0}</li>
           </ul> : "Loading.."}
-{/* 
+          {/* 
           {districtsSelect && Object.keys(districtsSelect).length !== count && (
             <button onClick={leftArrowClick}>{">"}</button>
           )} */}

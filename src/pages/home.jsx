@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 
 const Home = ({ covidData }) => {
   const [data, setData] = useState(covidData?.covid);
-  const [delta , setDelta]= useState("Total");
   const location = useLocation();
 
   useEffect(()=>{
@@ -50,7 +49,6 @@ const Home = ({ covidData }) => {
                 key={index}
                 state={elem}
                 data={data[elem]?.total ? data[elem]?.total : {}}
-                delta={delta}
                 districts={data[elem]?.districts}
               />
             );
