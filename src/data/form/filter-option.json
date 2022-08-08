@@ -4,12 +4,12 @@
         "value": "Filter"
     },
     {
-        "option": "Count Asc",
-        "value": "countAsc"
+        "option": "Confirmed Asc",
+        "value": "confirmedAsc"
     },
     {
-        "option": "Count Dsc",
-        "value": "countDsc"
+        "option": "Confirmed Dsc",
+        "value": "confirmedDsc"
     },
     {
         "option": "Affected Percentage Asc",

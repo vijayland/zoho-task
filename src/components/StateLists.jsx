@@ -10,6 +10,19 @@ export default function StateLists({ state, districts }) {
   const [data, setData] = useState({});
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
+  useEffect(() => {
+    if (count !== null) {
+      if (count == 0) {
+        setData(districts[selectedDistrict].total)
+      } else if (count == 1) {
+        setData(districts[selectedDistrict].delta)
+      } else if (count == 2) {
+        setData(districts[selectedDistrict].delta7)
+      }
+    }
+  }, [count]);
+
+
   const leftArrowClick = (e) => {
     e.preventDefault();
     setCount(count + 1);
@@ -46,22 +59,20 @@ export default function StateLists({ state, districts }) {
             <Select options={options} onChange={handleDistrictChange} value={selectedDistrict} />
           </div>
 
-          <h4>{delta}</h4>
-          {/* {count !== null && count > 1 && (
+
+          {count !== null && count > 1 && (
             <button onClick={rightArrowClick}>{"<"}</button>
-          )} */}
-          {/* {Object.keys(districts).map((item, index)=>(
-            <h4>{item}</h4>
-          ))} */}
+          )}
+          <h4>{delta}</h4>
           {typeof data == 'object' ? <ul>
             <li>confirmed: {data?.confirmed ? data?.confirmed : 0}</li>
             <li>recovered: {data?.recovered ? data?.recovered : 0}</li>
             <li>deceased: {data?.deceased ? data?.deceased : 0}</li>
           </ul> : "Loading.."}
-          {/* 
-          {districtsSelect && Object.keys(districtsSelect).length !== count && (
+
+          {districts && Object.keys(districts).length !== count && (
             <button onClick={leftArrowClick}>{">"}</button>
-          )} */}
+          )}
         </Link>
       </Card>
     </>

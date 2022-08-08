@@ -2,7 +2,7 @@ import Input from "./form/Input";
 import FilterOption from "../data/form/filter-option.json"
 import Select from "./form/Select";
 
-export default function Filter({ handleSeach, handleDatePicer }) {
+export default function Filter({ handleSeach, handleDatePicer, handleOptionChange }) {
   let inputs = [
     {
       type: "text",
@@ -14,9 +14,7 @@ export default function Filter({ handleSeach, handleDatePicer }) {
       onChange: handleDatePicer
     }
   ];
-  const handleOptionChange = (e) => {
 
-  }
   return (
     <>
       {inputs.map((input, index) => (
