@@ -56,7 +56,7 @@ export default function StateLists({ state, districts }) {
         <Link to={`/details/${state}`}>
           <h4>{state}</h4>
           <div>
-            <Select options={options} onChange={handleDistrictChange} value={selectedDistrict} />
+            <Select options={options} onChange={handleDistrictChange} defaultValue={selectedDistrict} />
           </div>
 
           {count !== null && count > 1 && (

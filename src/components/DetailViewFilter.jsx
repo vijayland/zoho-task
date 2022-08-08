@@ -1,4 +1,4 @@
-import FilterOption from "../data/form/filter-option.json"
+import DetailSortOption from "../data/form/detail-sort-option.json"
 import FormInput from "./form";
 
 export default function DetailViewFilter({ handleDatePicer, handleOptionChange }) {
@@ -10,10 +10,11 @@ export default function DetailViewFilter({ handleDatePicer, handleOptionChange }
     {
       type: "select",
       onChange: handleOptionChange,
-      options: FilterOption
+      options: DetailSortOption
     },
     {
       type: "select",
+      options: []
     }
   ];
 

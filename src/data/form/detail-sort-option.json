@@ -12,19 +12,19 @@
         "value": "confirmedDsc"
     },
     {
-        "option": "Affected Asc",
-        "value": "affAsc"
+        "option": "Recovered Asc",
+        "value": "recAsc"
     },
     {
-        "option": "Affected Dsc",
-        "value": "affDsc"
+        "option": "Recovered Asc",
+        "value": "recDsc"
     },
     {
-        "option": "Vaccinated Asc",
-        "value": "vacAsc"
+        "option": "Deceased Asc",
+        "value": "decAsc"
     },
     {
-        "option": "Vaccinated Dsc",
-        "value": "vacDsc"
+        "option": "Deceased Dsc",
+        "value": "decDsc"
     }
 ]

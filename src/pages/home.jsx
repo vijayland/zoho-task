@@ -14,6 +14,7 @@ const Home = ({ covidData }) => {
     setData(covidData?.covid);
   }, [covidData]);
 
+  //Search Enter text
   const handleSeach = (e) => {
     let name = e.target.value.split("");
     if (name.length === 2) {
@@ -33,8 +34,17 @@ const Home = ({ covidData }) => {
     }
   };
 
-  const handleDatePicer = (date) => { };
+  //Date Filter
+  const handleDatePicer = (e) => {
+    let filter = Object.keys(covidData.covid).filter(item => covidData.covid[item].meta.date === e.target.value)
+      .reduce((obj, key) => {
+        obj[key] = data[key];
+        return obj;
+      }, {});
+    setData(filter);
+  };
 
+  //Sorting
   const handleOptionChange = (e) => {
     if (e.target.value === 'confirmedDsc') {
       let sorted = Object.keys(covidData?.covid).sort((a, b) => {
@@ -43,17 +53,50 @@ const Home = ({ covidData }) => {
         obj[key] = data[key];
         return obj;
       }, {});
-     
       setData(sorted);
-    } else if(e.target.value === 'confirmedAsc'){
+    } else if (e.target.value === 'confirmedAsc') {
       let sorted = Object.keys(covidData?.covid).sort((a, b) => {
-        return  covidData.covid[b].total.confirmed - covidData.covid[a].total.confirmed;
+        return covidData.covid[b].total.confirmed - covidData.covid[a].total.confirmed;
       }).reduce((obj, key) => {
         obj[key] = data[key];
         return obj;
       }, {});
-     
       setData(sorted);
+    } else if (e.target.value === 'affDsc') {
+      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
+        return covidData.covid[a].total.affected - covidData.covid[b].total.affected;
+      }).reduce((obj, key) => {
+        obj[key] = data[key];
+        return obj;
+      }, {});
+      setData(sorted);
+    } else if (e.target.value === 'affDsc') {
+      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
+        return covidData.covid[b].total.affected - covidData.covid[a].total.affected;
+      }).reduce((obj, key) => {
+        obj[key] = data[key];
+        return obj;
+      }, {});
+      setData(sorted);
+    } else if (e.target.value === 'vacAsc') {
+      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
+        return covidData.covid[a].total.vaccinated1 - covidData.covid[b].total.vaccinated1;
+      }).reduce((obj, key) => {
+        obj[key] = data[key];
+        return obj;
+      }, {});
+      setData(sorted);
+    } else if (e.target.value === 'affDsc') {
+      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
+        return covidData.covid[b].total.vaccinated1 - covidData.covid[a].total.vaccinated1;
+      }).reduce((obj, key) => {
+        obj[key] = data[key];
+        return obj;
+      }, {});
+
+      setData(sorted);
+    } else {
+      setData(covidData?.covid)
     }
   }
   return (

@@ -17,10 +17,14 @@ const Details = ({ covidData }) => {
         { name: "Delta7", field: "delta7" }
     ];
 
+    const handleOptionChange=(e)=>{
+        
+    }
+    
     return (
         <>
             <Layout />
-            <DetailViewFilter/>
+            <DetailViewFilter handleOptionChange={handleOptionChange}/>
             {covidData?.timeSeries !== null && typeof covidData?.timeSeries === 'object'
                 ?
                 <Table columns={columns} data={covidData?.timeSeries[state]?.dates} />
