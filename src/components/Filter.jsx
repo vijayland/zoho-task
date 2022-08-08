@@ -1,6 +1,5 @@
-import Input from "./form/Input";
 import FilterOption from "../data/form/filter-option.json"
-import Select from "./form/Select";
+import FormInput from "./form";
 
 export default function Filter({ handleSeach, handleDatePicer, handleOptionChange }) {
   let inputs = [
@@ -12,21 +11,17 @@ export default function Filter({ handleSeach, handleDatePicer, handleOptionChang
     {
       type: "date",
       onChange: handleDatePicer
+    },
+    {
+      type: "select",
+      onChange: handleOptionChange,
+      options: FilterOption
     }
   ];
 
   return (
     <>
-      {inputs.map((input, index) => (
-        <Input
-          key={index}
-          type={input.type}
-          placeholder={input.placeholder}
-          onChange={input.onChange}
-        />
-      ))}
-
-      <Select options={FilterOption} onChange={handleOptionChange} />
+      <FormInput inputs={inputs}/>
     </>
   );
 }

@@ -59,7 +59,6 @@ export default function StateLists({ state, districts }) {
             <Select options={options} onChange={handleDistrictChange} value={selectedDistrict} />
           </div>
 
-
           {count !== null && count > 1 && (
             <button onClick={rightArrowClick}>{"<"}</button>
           )}
