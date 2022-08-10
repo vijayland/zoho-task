@@ -19,8 +19,8 @@ export default function DetailViewFilter({ handleDatePicer, handleOptionChange }
   ];
 
   return (
-    <>
+    <div className="filter">
       <FormInput inputs={inputs} />
-    </>
+    </div>
   );
 }

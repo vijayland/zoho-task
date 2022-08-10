@@ -103,6 +103,7 @@ const Home = ({ covidData }) => {
     <>
       <Layouts />
       <div className="App">
+        <div className="container">
         <Filter handleSeach={handleSeach} handleDatePicer={handleDatePicer} handleOptionChange={handleOptionChange} />
         <div className="flex">
 
@@ -116,6 +117,7 @@ const Home = ({ covidData }) => {
               />
             );
           }) : "Loading..."}
+        </div>
         </div>
       </div>
     </>

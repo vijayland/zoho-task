@@ -20,8 +20,8 @@ export default function Filter({ handleSeach, handleDatePicer, handleOptionChang
   ];
 
   return (
-    <>
+    <div className="filter">
       <FormInput inputs={inputs}/>
-    </>
+    </div>
   );
 }
