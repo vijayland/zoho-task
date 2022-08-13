@@ -34,14 +34,29 @@ const Details = ({ covidData }) => {
             setData(ascending(data, 'deceased'));
         } else if (value === "decDsc") {
             setData(dscending(data, 'deceased'));
+        } else {
+            setData(covidData?.timeSeries[state]?.dates)
         }
     }
 
+    //Date Filter
+    const handleDatePicer = (e) => {
+        if (e.target.value == "") {
+            setData(covidData?.timeSeries[state]?.dates)
+        } else {
+            let filter = Object.keys(covidData?.timeSeries[state]?.dates).filter(item => item === e.target.value)
+                .reduce((obj, key) => {
+                    obj[key] = covidData?.timeSeries[state]?.dates[key];
+                    return obj;
+                }, {});
+            setData(filter)
+        }
+    };
     return (
         <>
             <Layout />
             <div className="container">
-                <DetailViewFilter handleOptionChange={handleOptionChange} />
+                <DetailViewFilter handleOptionChange={handleOptionChange} handleDatePicer={handleDatePicer} />
                 {data !== null && typeof data === 'object'
                     ?
                     <Table columns={columns} data={data} />

@@ -8,7 +8,7 @@ export default function Table({ columns, data }) {
                 {columns?.map((element, index) => (<th key={index}>{element.name}</th>))}
             </tr>
 
-            {Object.keys(data)?.map((item, index) => (
+            {Object.keys(data).length > 0 ? Object.keys(data)?.map((item, index) => (
                 <>
                     <tr>
                         <td key={index}>{item}</td>
@@ -31,7 +31,7 @@ export default function Table({ columns, data }) {
                         </td>
                     </tr>
                 </>
-            ))}
+            )): "Data Not Found"}
 
         </table>
     </>)
