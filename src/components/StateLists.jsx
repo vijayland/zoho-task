@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "./Card";
-import Select from "./form/Select";
+import Select from "./Form/Select";
 
 export default function StateLists({ state, districts }) {
   const [count, setCount] = useState(null);

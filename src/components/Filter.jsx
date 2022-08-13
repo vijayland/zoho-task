@@ -1,5 +1,5 @@
 import FilterOption from "../data/form/filter-option.json"
-import FormInput from "./form";
+import FormInput from "./Form";
 
 export default function Filter({ handleSeach, handleDatePicer, handleOptionChange }) {
   let inputs = [

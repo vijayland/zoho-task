@@ -5,6 +5,7 @@ import "../styles.css";
 import Layouts from "../layouts";
 import Filter from "../components/Filter";
 import { useLocation } from "react-router-dom";
+import { ascending, dscending } from "../utils/sorting";
 
 const Home = ({ covidData }) => {
   const [data, setData] = useState(covidData?.covid);
@@ -47,54 +48,17 @@ const Home = ({ covidData }) => {
   //Sorting
   const handleOptionChange = (e) => {
     if (e.target.value === 'confirmedDsc') {
-      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
-        return covidData.covid[a].total.confirmed - covidData.covid[b].total.confirmed;
-      }).reduce((obj, key) => {
-        obj[key] = data[key];
-        return obj;
-      }, {});
-      setData(sorted);
+      setData(dscending(data, 'confirmed'));
     } else if (e.target.value === 'confirmedAsc') {
-      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
-        return covidData.covid[b].total.confirmed - covidData.covid[a].total.confirmed;
-      }).reduce((obj, key) => {
-        obj[key] = data[key];
-        return obj;
-      }, {});
-      setData(sorted);
+      setData(ascending(data, 'confirmed'));
     } else if (e.target.value === 'affDsc') {
-      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
-        return covidData.covid[a].total.affected - covidData.covid[b].total.affected;
-      }).reduce((obj, key) => {
-        obj[key] = data[key];
-        return obj;
-      }, {});
-      setData(sorted);
-    } else if (e.target.value === 'affDsc') {
-      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
-        return covidData.covid[b].total.affected - covidData.covid[a].total.affected;
-      }).reduce((obj, key) => {
-        obj[key] = data[key];
-        return obj;
-      }, {});
-      setData(sorted);
+      setData(dscending(data, 'affected'));
+    } else if (e.target.value === 'affAsc') {
+      setData(ascending(data, 'affected'));
+    } else if (e.target.value === 'vacDsc') {
+      setData(dscending(data, 'vaccinated1'));
     } else if (e.target.value === 'vacAsc') {
-      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
-        return covidData.covid[a].total.vaccinated1 - covidData.covid[b].total.vaccinated1;
-      }).reduce((obj, key) => {
-        obj[key] = data[key];
-        return obj;
-      }, {});
-      setData(sorted);
-    } else if (e.target.value === 'affDsc') {
-      let sorted = Object.keys(covidData?.covid).sort((a, b) => {
-        return covidData.covid[b].total.vaccinated1 - covidData.covid[a].total.vaccinated1;
-      }).reduce((obj, key) => {
-        obj[key] = data[key];
-        return obj;
-      }, {});
-
-      setData(sorted);
+      setData(ascending(data, 'vaccinated1'));
     } else {
       setData(covidData?.covid)
     }

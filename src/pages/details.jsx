@@ -3,9 +3,12 @@ import Layout from "../layouts";
 import Table from "../components/Table";
 import { connect } from "react-redux";
 import DetailViewFilter from "../components/DetailViewFilter";
+import { useState } from "react";
+import { ascending, dscending } from "../utils/sorting";
 
 const Details = ({ covidData }) => {
     let { state } = useParams();
+    let [data, setData] = useState(covidData?.timeSeries[state]?.dates);
 
     //Table headers
     const columns = [
@@ -18,7 +21,20 @@ const Details = ({ covidData }) => {
     ];
 
     const handleOptionChange = (e) => {
-
+        let { value } = e.target;
+        if (value === "confirmedDsc") {
+            setData(dscending(data, 'confirmed'));
+        } else if (value === "confirmedAsc") {
+            setData(ascending(data, 'confirmed'));
+        } else if (value === "recDsc") {
+            setData(dscending(data, 'recovered'));
+        } else if (value === "recAsc") {
+            setData(ascending(data, 'recovered'));
+        } else if (value === "decAsc") {
+            setData(ascending(data, 'deceased'));
+        } else if (value === "decDsc") {
+            setData(dscending(data, 'deceased'));
+        }
     }
 
     return (
@@ -26,9 +42,9 @@ const Details = ({ covidData }) => {
             <Layout />
             <div className="container">
                 <DetailViewFilter handleOptionChange={handleOptionChange} />
-                {covidData?.timeSeries !== null && typeof covidData?.timeSeries === 'object'
+                {data !== null && typeof data === 'object'
                     ?
-                    <Table columns={columns} data={covidData?.timeSeries[state]?.dates} />
+                    <Table columns={columns} data={data} />
                     : <h1>Loading...</h1>}
             </div>
         </>

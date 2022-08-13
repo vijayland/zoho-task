@@ -1,5 +1,5 @@
 import DetailSortOption from "../data/form/detail-sort-option.json"
-import FormInput from "./form";
+import FormInput from "./Form";
 
 export default function DetailViewFilter({ handleDatePicer, handleOptionChange }) {
   let inputs = [
