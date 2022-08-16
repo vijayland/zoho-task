@@ -41,7 +41,7 @@ const Details = ({ covidData }) => {
 
     //Date Filter
     const handleDatePicer = (e) => {
-        if (e.target.value == "") {
+        if (e.target.value === "") {
             setData(covidData?.timeSeries[state]?.dates)
         } else {
             let filter = Object.keys(covidData?.timeSeries[state]?.dates).filter(item => item === e.target.value)
@@ -52,6 +52,33 @@ const Details = ({ covidData }) => {
             setData(filter)
         }
     };
+
+    const row = (data) => {
+        return (
+            Object.keys(data).length > 0 ? Object.keys(data)?.map((item, index) => (
+                <tr key={index}>
+                    <td>{item}</td>
+                    <td>{data[item]?.total?.confirmed ? data[item]?.total?.confirmed : 0}</td>
+                    <td>{data[item]?.total?.recovered ? data[item]?.total?.recovered : 0}</td>
+                    <td>{data[item]?.total?.deceased ? data[item]?.total?.deceased : 0}</td>
+                    <td>
+                        <ul>
+                            <li>Confirmed: {data[item]?.delta?.confirmed}</li>
+                            <li>Recovered: {data[item]?.total?.recovered ? data[item]?.total?.recovered : 0}</li>
+                            <li>Deceased: {data[item]?.total?.deceased ? data[item]?.total?.deceased : 0}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Confirmed: {data[item]?.delta7?.confirmed}</li>
+                            <li>Recovered: {data[item]?.total7?.recovered ? data[item]?.total?.recovered : 0}</li>
+                            <li>Deceased: {data[item]?.total7?.deceased ? data[item]?.total?.deceased : 0}</li>
+                        </ul>
+                    </td>
+                </tr>
+            )) : "Data Not Found")
+    }
+
     return (
         <>
             <Layout />
@@ -59,7 +86,7 @@ const Details = ({ covidData }) => {
                 <DetailViewFilter handleOptionChange={handleOptionChange} handleDatePicer={handleDatePicer} />
                 {data !== null && typeof data === 'object'
                     ?
-                    <Table columns={columns} data={data} />
+                    <Table columns={columns} data={row(data)} />
                     : <h1>Loading...</h1>}
             </div>
         </>
