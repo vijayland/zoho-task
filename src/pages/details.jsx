@@ -5,10 +5,21 @@ import { connect } from "react-redux";
 import DetailViewFilter from "../components/DetailViewFilter";
 import { useState } from "react";
 import { ascending, dscending } from "../utils/sorting";
+import { useEffect } from "react";
 
 const Details = ({ covidData }) => {
     let { state } = useParams();
     let [data, setData] = useState(covidData?.timeSeries[state]?.dates);
+    let [districts, setDistricts] = useState([{
+        option: "District",
+        value: ""
+    }]);
+
+    useEffect(() => {
+        setDistricts([...districts, ...Object.keys(covidData.covid[state].districts).map((item) => {
+            return { option: item, value: item };
+        })])
+    }, [])
 
     //Table headers
     const columns = [
@@ -53,6 +64,19 @@ const Details = ({ covidData }) => {
         }
     };
 
+    //Districts Filter
+    const handleDistrictFilter = (e) => {
+        if (e.target.value == "") {
+            setData(covidData.covid);
+        } else {
+            function Obj() {
+                this[covidData.covid[state].districts[e.target.value].meta.tested.date] = covidData.covid[state].districts[e.target.value]
+            }
+            let distObj = new Obj();
+            setData(distObj)
+        }
+    }
+
     const row = (data) => {
         return (
             Object.keys(data).length > 0 ? Object.keys(data)?.map((item, index) => (
@@ -78,12 +102,17 @@ const Details = ({ covidData }) => {
                 </tr>
             )) : "Data Not Found")
     }
-
+    console.log(covidData, "**************")
     return (
         <>
             <Layout />
             <div className="container">
-                <DetailViewFilter handleOptionChange={handleOptionChange} handleDatePicer={handleDatePicer} />
+                <DetailViewFilter
+                    handleOptionChange={handleOptionChange}
+                    handleDatePicer={handleDatePicer}
+                    districts={districts}
+                    handleDistrictFilter={handleDistrictFilter}
+                />
                 {data !== null && typeof data === 'object'
                     ?
                     <Table columns={columns} data={row(data)} />

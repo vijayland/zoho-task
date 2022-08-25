@@ -1,6 +1,6 @@
 function ascending(data, filed){
    return Object.keys(data).sort((a, b) => {
-        return data[a]?.total[filed] - data[b]?.total[filed]
+        return (data[a]?.total[filed] || Number.MAX_VALUE) - (data[b]?.total[filed] || Number.MAX_VALUE)
     }).reduce((obj, key) => {
         obj[key] = data[key];
         return obj;
@@ -8,7 +8,7 @@ function ascending(data, filed){
 }
 function dscending(data, filed){
     return Object.keys(data).sort((a, b) => {
-         return data[b]?.total[filed] - data[a]?.total[filed]
+         return (data[b]?.total[filed] || Number.MAX_VALUE) - (data[a]?.total[filed] || Number.MAX_VALUE)
      }).reduce((obj, key) => {
          obj[key] = data[key];
          return obj;

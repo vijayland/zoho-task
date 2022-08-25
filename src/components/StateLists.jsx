@@ -12,11 +12,11 @@ export default function StateLists({ state, districts }) {
 
   useEffect(() => {
     if (count !== null) {
-      if (count == 0) {
+      if (count === 0) {
         setData(districts[selectedDistrict].total)
-      } else if (count == 1) {
+      } else if (count === 1) {
         setData(districts[selectedDistrict].delta)
-      } else if (count == 2) {
+      } else if (count === 2) {
         setData(districts[selectedDistrict].delta7)
       }
     }
@@ -40,7 +40,7 @@ export default function StateLists({ state, districts }) {
   }
 
   useEffect(() => {
-    if (districts !== undefined && typeof districts == 'object') {
+    if (districts !== undefined && typeof districts === 'object') {
       let final = Object.keys(districts).map(district => {
         return { option: district, value: district };
       })
